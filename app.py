@@ -1,13 +1,8 @@
+import time
 from pprint import pprint
 
 from dotenv import load_dotenv
 from flask import Flask, render_template, request, jsonify
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import FAISS
-from langchain.text_splitter import CharacterTextSplitter
-from langchain.llms import OpenAI
-from langchain.chains import ConversationalRetrievalChain
-from langchain.memory import ConversationBufferMemory
 
 from calls import get_query_response
 
@@ -15,7 +10,6 @@ from calls import get_query_response
 load_dotenv()
 
 app = Flask(__name__)
-
 
 @app.route('/')
 def home():
@@ -35,12 +29,13 @@ def chat():
         })
 
     try:    
-        # Get response from the chain
+        # static first message
         if user_message == 'start':
-            # return jsonify({
-            #     "response": "**Developers Den** is a specialized AI solutions company that has successfully served over 25 clients and completed more than 40 AI projects. The company has recently expanded globally with a new USA office in 2023 and offers comprehensive services including product engineering, web development, and mobile development. \n\nWould you like to know more specific details about Developers Den, such as their vision, services, or achievements?"
-            # })
-            user_message = "Give me brief company overview (maximum 2 sentences)."
+            time.sleep(1)
+            # user_message = "Give me brief company overview (maximum 2 sentences)."
+            return jsonify({
+                "response": "**Developers Den** is a specialized AI solutions company that has served over 25 clients and completed more than 40 AI projects. We recently expanded globally with a new office in the USA in 2023, offering services in product engineering, web development, and mobile development. \n\nWould you like to know more about our vision, services, or achievements?"
+            })
 
         response = get_query_response(query=user_message, chat_history=chat_history)       
         # pprint(response)

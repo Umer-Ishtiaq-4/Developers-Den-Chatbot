@@ -9,7 +9,7 @@ from prompts import (
     retrieve_company_information_tool_name,
     retrieve_company_information_tool_desc
 )
-from train_data import get_query_result
+from KnowledgeBase.response import get_query_result
 
 class SendProfileViaEmailInput(BaseModel):
     email: str = Field(..., description="email address of the user to send the profile to")
@@ -22,7 +22,7 @@ class SendProfileViaEmail(BaseTool):
         print("\nSend Profile Via Email tool recieved input")
         print(f"Kwargs: `{kwargs}`", end="\n")
         print(f"Input: `{input_str}`", end="\n\n")
-    
+
         if "email" in kwargs:
             email = kwargs["email"]
         else:
@@ -34,12 +34,9 @@ class SendProfileViaEmail(BaseTool):
 
         return "Check your email for the company profile. Profile sent to " + email
     
-    # def _arun(self, email: str):
-    #     raise NotImplementedError("This tool does not support async execution")
-    #     return email
+    def _arun(self, email: str):
+        raise NotImplementedError("This tool does not support async execution")
     
-    # args_schema: Type[BaseModel] = SendProfileViaEmailInput
-
     
 class RetrieveCompanyInformation(BaseTool):
     name: str = retrieve_company_information_tool_name
@@ -66,9 +63,8 @@ class RetrieveCompanyInformation(BaseTool):
 
         return result
     
-    # def _arun(self, query: str):
-    #     raise NotImplementedError("This tool does not support async execution")
-    #     return query
+    def _arun(self, query: str):
+        raise NotImplementedError("This tool does not support async execution")
+        return query
     
-    # args_schema: Type[BaseModel] = RetrieveCompanyInformationInput
 

@@ -16,14 +16,6 @@ llm = ChatOpenAI(
     # temperature=0, 
     max_retries=2
 )
-# llm = ChatAnthropic(
-#     model_name='claude-3-5-sonnet-20241022',
-#     timeout=1000,
-#     max_retries=3,
-#     stop=None
-#         # other params...
-# )
-
 
 tools = [
     SendProfileViaEmail(),
@@ -56,16 +48,23 @@ def convert_chat_history_understandable(chat_history):
 
 
 def get_query_response(query: str, chat_history: list):
-    
+    """
+    Process a query using the provided chat history and return the agent's response.
+
+    Args:
+        query (str): The user's query to be processed.
+        chat_history (list): List of previous chat messages for context.
+
+    Returns:
+        dict: Response from the agent containing the answer and any additional data.
+    """
+    # Convert chat history into a format understandable by the agent
     if chat_history:
         chat_history = convert_chat_history_understandable(chat_history)
     
     print("\nUpdated chat history: ", chat_history)
-    # response = agent_executor.invoke({
-    #     "input": query,
-    #     "chat_history": chat_history
-    # })
 
+    # Invoke the agent executor with the current query and chat history
     response = agent_executor.invoke(
         {
             "input": f"{query}",
@@ -73,3 +72,4 @@ def get_query_response(query: str, chat_history: list):
         })
 
     return response
+

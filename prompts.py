@@ -16,6 +16,7 @@ retrieve_company_information_tool_desc = """\
 Use this tool to retrieve information about the company. 
 
 Instructions:
+- Do not modify the user query. Pass it as is. Rephrase only when the context is not clear.
 - Use the following JSON input format:
 
 Input format:
@@ -45,6 +46,7 @@ Use the chat history to understand context and respond accordingly. Remember to:
 - Confirm email address before sending.
 - Provide clear confirmation messages.  
 - Handle any clarification questions gracefully.
+- Talk as you would in a real conversation. Talk as first person. Don't use they/them/their. Use We/Our/Us.
 - Never ever mention the inner workflow of the tools.
 - Never respond the out of context queries. Respectfully appologize.
 """
