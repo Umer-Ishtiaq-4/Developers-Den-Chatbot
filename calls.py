@@ -1,6 +1,6 @@
 from langchain_openai import ChatOpenAI
 from langchain_anthropic import ChatAnthropic
-from langchain.agents import create_react_agent, AgentExecutor, create_openai_tools_agent
+from langchain.agents import AgentExecutor, create_openai_tools_agent
 from langchain_core.prompts.chat import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from langchain import hub
@@ -62,7 +62,7 @@ def get_query_response(query: str, chat_history: list):
     if chat_history:
         chat_history = convert_chat_history_understandable(chat_history)
     
-    print("\nUpdated chat history: ", chat_history)
+    # print("\nUpdated chat history: ", chat_history)
 
     # Invoke the agent executor with the current query and chat history
     response = agent_executor.invoke(
